@@ -2,7 +2,6 @@ import React from "react";
 import Edit from "./contactlayouts/Editform";
 import Cardheader from "./contactlayouts/Cardheader";
 import Contactbody from "./contactlayouts/Contactbody";
-import contactbody from "./contactlayouts/Contactbody";
 import Auxillary from "../HOC/Auxillary";
 class Contact extends React.Component {
   //binding the event handler
@@ -16,7 +15,7 @@ class Contact extends React.Component {
       email: this.props.contact.email,
       phone: this.props.contact.phone,
       error: {},
-      valid: true
+      valid: true,
     };
   }
   // shouldComponentUpdate(nextProps, nextState) {
@@ -30,7 +29,7 @@ class Contact extends React.Component {
     //Normal way of doing
 
     this.setState({
-      ishide: !this.state.ishide
+      ishide: !this.state.ishide,
     });
 
     //Elquate way of doing
@@ -45,33 +44,33 @@ class Contact extends React.Component {
     console.log("clicked");
     this.setState({ isEditing: true });
   };
-  handleChange = e => {
+  handleChange = (e) => {
     //console.log(e.target);
     this.setState({ [e.target.name]: e.target.value });
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, phone, valid } = this.state;
 
     if (name === "") {
       return this.setState({
         error: { nameerror: "Please enter the name, " },
-        valid: false
+        valid: false,
       });
     } else if (email === "") {
       return this.setState({
         error: { emailerror: "Please enter the valid email address" },
-        valid: false
+        valid: false,
       });
     } else if (phone === "") {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
-        valid: false
+        valid: false,
       });
     } else if (phone.length < 10 || phone.length > 10) {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
-        valid: false
+        valid: false,
       });
     } else {
       this.setState({ valid: true });
@@ -81,7 +80,7 @@ class Contact extends React.Component {
         name,
         email,
         phone,
-        id: this.props.contact.id
+        id: this.props.contact.id,
       };
       this.props.edit(editformdata);
       this.setState({ error: {} });

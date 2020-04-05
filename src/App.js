@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Components/Navbar";
-import Contact from "./Components/contacts.js/Contact";
+import Contact from "./Components/contacts/Contact";
 import Form from "./Components/Form";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
