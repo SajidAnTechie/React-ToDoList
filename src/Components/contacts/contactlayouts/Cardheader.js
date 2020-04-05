@@ -1,18 +1,15 @@
 import React from "react";
-
-const cardheader = props => {
+import Classes from "./Cardheader.css";
+const cardheader = (props) => {
   return (
-    <div
-      className="card"
-      style={{ width: "50%", margin: "auto", marginTop: "20px" }}
-    >
+    <div className="card" className={Classes.card}>
       <div
         className="card-header"
         style={{
           backgroundColor: "blue",
           color: "white",
           fontWeight: "bold",
-          fontSize: "26px"
+          fontSize: "26px",
         }}
       >
         <i
