@@ -1,11 +1,12 @@
 import React from "react";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/navbar/Navbar";
 import Contact from "./Components/contacts/Contact";
 import Form from "./Components/Form";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import uuid from "uuid/v4";
+import { Transition } from "react-spring/renderprops";
 import Auxillary from "./Components/HOC/Auxillary";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -70,7 +71,9 @@ class App extends React.Component {
     let data = { id: uuid(), ...formdata };
     //console.log(data);
 
-    this.setState({ contact: [data, ...this.state.contact] });
+    this.setState({
+      contact: [data, ...this.state.contact],
+    });
     toast.success("Data Added Successful");
   };
   EditSubmitData = (editformdata) => {
@@ -90,21 +93,28 @@ class App extends React.Component {
     // const contactlist = this.state.contact.split('').map(contacts => (
     //   <Contact contact={contacts} key={contacts.id} delete={this.delete} />
     // ));
-    console.log("app.js");
+
     return (
       <Auxillary>
         <Navbar title="Contact Management System" />
         <Form data={this.insertData} />
-        {this.state.contact.map((contacts) => {
-          return (
-            <Contact
-              edit={this.EditSubmitData}
-              contact={contacts}
-              key={contacts.id}
-              delete={this.delete}
-            />
-          );
-        })}
+        <Transition
+          items={this.state.contact}
+          keys={(item) => item.id}
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
+        >
+          {(item) => (props) => (
+            <div style={props}>
+              <Contact
+                edit={this.EditSubmitData}
+                contact={item}
+                delete={this.delete}
+              />
+            </div>
+          )}
+        </Transition>
         {/* {contactlist} */}
         <ToastContainer />
       </Auxillary>

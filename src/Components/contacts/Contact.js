@@ -3,6 +3,7 @@ import Edit from "./contactlayouts/Editform";
 import Cardheader from "./contactlayouts/Cardheader";
 import Contactbody from "./contactlayouts/Contactbody";
 import Auxillary from "../HOC/Auxillary";
+
 class Contact extends React.Component {
   //binding the event handler
   constructor(props) {
@@ -123,6 +124,7 @@ class Contact extends React.Component {
           iconshape={iconshape}
           hideshow={this.hideshow}
           name={this.props.contact.name}
+          id={this.props.contact.id}
           handleEditing={this.handleEditing}
           handleDelete={this.handleDelete}
           //handleDelete={this.props.delete(this.props.contact.id)}

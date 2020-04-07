@@ -1,0 +1,36 @@
+.cardheader {
+  width: 50% !important;
+  margin: auto !important;
+  margin-top: 20px !important;
+}
+.cardtopheader {
+  background-color: blue !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 26px !important;
+}
+.iconshape {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.editsection {
+  float: right;
+}
+.editicon {
+  margin-right: 20px;
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}

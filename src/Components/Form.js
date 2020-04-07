@@ -1,5 +1,5 @@
 import React from "react";
-
+import Classes from "./contacts/contactlayouts/Cardheader.module.css";
 class Form extends React.Component {
   constructor() {
     super();
@@ -12,12 +12,12 @@ class Form extends React.Component {
       focus: {
         namefocus: "",
         emailfocus: "",
-        phonefocus: ""
-      }
+        phonefocus: "",
+      },
     };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     //console.log(e.target);
     this.setState({ [e.target.name]: e.target.value });
     const { name, value } = e.target;
@@ -48,29 +48,29 @@ class Form extends React.Component {
     }
     this.setState({ focus, [name]: value });
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, phone, valid } = this.state;
 
     if (name === "") {
       return this.setState({
         error: { nameerror: "Please enter the name, " },
-        valid: false
+        valid: false,
       });
     } else if (email === "") {
       return this.setState({
         error: { emailerror: "Please enter the valid email address" },
-        valid: false
+        valid: false,
       });
     } else if (phone === "") {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
-        valid: false
+        valid: false,
       });
     } else if (phone.length < 10 || phone.length > 10) {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
-        valid: false
+        valid: false,
       });
     } else {
       this.setState({ valid: true });
@@ -105,6 +105,7 @@ class Form extends React.Component {
         </button>
       );
     }
+    let card = ["card", Classes.cardheader];
     return (
       <div className="card w-50 mt-5 mx-auto">
         <div className="card-header">

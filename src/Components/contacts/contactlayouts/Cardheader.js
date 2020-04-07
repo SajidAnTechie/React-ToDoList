@@ -1,32 +1,25 @@
 import React from "react";
-import Classes from "./Cardheader.css";
+import Classes from "./Cardheader.module.css";
+
 const cardheader = (props) => {
+  let card = ["card", Classes.cardheader];
+  let cardtopheader = ["card-header", Classes.cardtopheader];
+  let iconshape = [props.iconshape, Classes.iconshape];
+  let editicon = ["fas fa-edit", Classes.editicon];
   return (
-    <div className="card" className={Classes.card}>
-      <div
-        className="card-header"
-        style={{
-          backgroundColor: "blue",
-          color: "white",
-          fontWeight: "bold",
-          fontSize: "26px",
-        }}
-      >
+    <div className={card.join(" ")}>
+      <div className={cardtopheader.join(" ")}>
         <i
           className={
-            props.iconshape
+            iconshape.join(" ")
+
             /*this.state.ishide ? "fas fa-arrow-up" : "fas fa-arrow-down"*/
           }
           onClick={props.hideshow}
-          style={{ marginRight: "15px", cursor: "pointer" }}
         ></i>
         {props.name}
-        <div style={{ float: "right" }}>
-          <i
-            className="fas fa-edit"
-            onClick={props.handleEditing}
-            style={{ marginRight: "20px" }}
-          ></i>
+        <div className={Classes.editsection}>
+          <i className={editicon.join(" ")} onClick={props.handleEditing}></i>
           <i className="fas fa-trash" onClick={props.handleDelete}></i>
           {/* <i
               className="fas fa-trash"

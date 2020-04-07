@@ -1,12 +1,13 @@
 import React from "react";
+import Classes from "./Navbar.module.css";
 
 class Navbar extends React.Component {
   state = {
     persons: {
       id: 0,
       name: 0,
-      age: 0
-    }
+      age: 0,
+    },
   };
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -19,7 +20,7 @@ class Navbar extends React.Component {
   render() {
     //object keys of object
     let stateholder = Object.keys(this.state.persons)
-      .map(id => {
+      .map((id) => {
         return [...Array(this.state.persons[id])].map((_, index) => {
           return id;
         });
@@ -29,16 +30,11 @@ class Navbar extends React.Component {
       }, []);
 
     console.log("navabar.js", stateholder);
+    let navbar = ["navbar navbar-expand-lg navbar-light", Classes.navbar];
+    let navbartextstyle = ["navbar-brand", Classes.navbartext];
     return (
-      <nav
-        className="navbar navbar-expand-lg navbar-light"
-        style={{ background: "blue" }}
-      >
-        <a
-          className="navbar-brand"
-          style={{ color: "white", fontWeight: "bold" }}
-          href="#"
-        >
+      <nav className={navbar.join(" ")}>
+        <a className={navbartextstyle.join(" ")} href="#">
           {this.props.title}
         </a>
       </nav>
