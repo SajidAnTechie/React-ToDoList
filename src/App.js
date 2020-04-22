@@ -7,44 +7,38 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import uuid from "uuid/v4";
 import { Transition } from "react-spring/renderprops";
+import axios from "axios";
 import Auxillary from "./Components/HOC/Auxillary";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends React.Component {
   state = {
-    contact: [
-      {
-        id: 1,
-        name: "Ram",
-        email: "sajidansari33272@gmail.com",
-        phone: 9817253327,
-      },
-      {
-        id: 2,
-        name: "Hari",
-        email: "sajidansari33@gmail.com",
-        phone: 9817253398,
-      },
-      {
-        id: 3,
-        name: "Shyam",
-        email: "sajidansari332@gmail.com",
-        phone: 9817253300,
-      },
-    ],
+    contact: [],
     show: false,
   };
   componentDidMount() {
-    console.log("[app.js] componenetdidMount");
+    this.handledatafetch();
   }
+
+  handledatafetch = () => {
+    axios
+      .get("http://localhost:5000/api/v1/contacts/")
+      .then((response) => {
+        // console.log(response);
+        this.setState({ contact: response.data.data });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   handleClick = () => {
     this.setState({ show: !this.state.show });
   };
   delete = (id) => {
-    let filterdata = this.state.contact.filter(function (contact) {
-      return contact.id != id;
-    });
+    // let filterdata = this.state.contact.filter(function (contact) {
+    //   return contact.id != id;
+    // });
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -55,37 +49,73 @@ class App extends React.Component {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.value) {
-        this.setState({ contact: filterdata });
-        Swal.fire(
-          "Deleted!",
-          toast.success("Delete Successful"),
-          "Your file has been deleted.",
-          "success"
-        );
+        axios
+          .delete(`http://localhost:5000/api/v1/contacts/delete/${id}`)
+          .then((response) => {
+            if (response.status === 200) {
+              this.handledatafetch();
+              Swal.fire(
+                "Deleted!",
+                toast.success("Delete Successful"),
+                "Your file has been deleted.",
+                "success"
+              );
+            }
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
       }
     });
   };
   insertData = (formdata) => {
-    //console.log(formdata);
-    // let id = this.state.contact.length + 1;
-    let data = { id: uuid(), ...formdata };
-    //console.log(data);
+    axios
+      .post("http://localhost:5000/api/v1/contacts/post", formdata)
+      .then((response) => {
+        // console.log(response);
+        this.handledatafetch();
+        toast.success("Data Added Successful");
+      })
+      .catch((error) => {
+        alert(error.message);
 
-    this.setState({
-      contact: [data, ...this.state.contact],
-    });
-    toast.success("Data Added Successful");
+        // console.log(error.message);
+      });
+
+    // //console.log(formdata);
+    // // let id = this.state.contact.length + 1;
+    // let data = { id: uuid(), ...formdata };
+    // //console.log(data);
+
+    // this.setState({
+    //   contact: [data, ...this.state.contact],
+    // });
   };
+
   EditSubmitData = (editformdata) => {
-    let editdata = this.state.contact.map((contact) => {
-      if (contact.id === editformdata.id) {
-        return editformdata;
-      } else {
-        return contact;
-      }
-    });
-    this.setState({ contact: editdata });
-    toast.success("Edit Successful");
+    axios
+      .put(
+        `http://localhost:5000/api/v1/contacts/update/${editformdata.id}`,
+        editformdata
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          this.handledatafetch();
+          toast.success("Edit Successful");
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+    // let editdata = this.state.contact.map((contact) => {
+    //   if (contact.id === editformdata.id) {
+    //     return editformdata;
+    //   } else {
+    //     return contact;
+    //   }
+    // });
+    // this.setState({ contact: editdata });
+    // toast.success("Edit Successful");
   };
   render() {
     //we can map js array by defining in a variable.
@@ -100,7 +130,7 @@ class App extends React.Component {
         <Form data={this.insertData} />
         <Transition
           items={this.state.contact}
-          keys={(item) => item.id}
+          keys={(item) => item._id}
           from={{ opacity: 0 }}
           enter={{ opacity: 1 }}
           leave={{ opacity: 0 }}

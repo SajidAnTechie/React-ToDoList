@@ -39,7 +39,7 @@ class Contact extends React.Component {
     // }));
   };
   handleDelete = () => {
-    this.props.delete(this.props.contact.id);
+    this.props.delete(this.props.contact._id);
   };
   handleEditing = () => {
     console.log("clicked");
@@ -81,7 +81,7 @@ class Contact extends React.Component {
         name,
         email,
         phone,
-        id: this.props.contact.id,
+        id: this.props.contact._id,
       };
       this.props.edit(editformdata);
       this.setState({ error: {} });

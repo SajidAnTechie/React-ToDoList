@@ -76,7 +76,12 @@ class Form extends React.Component {
       this.setState({ valid: true });
     }
     if (valid === true) {
-      this.props.data(this.state);
+      const data = {
+        name: this.state.name,
+        email: this.state.email,
+        phone: this.state.phone,
+      };
+      this.props.data(data);
       this.setState({ error: {}, name: "", email: "", phone: "" });
       this.setState({ focus: { name: "", email: "", phone: "" } });
     }
@@ -129,7 +134,7 @@ class Form extends React.Component {
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
-                type="email"
+                type="text"
                 className="form-control"
                 onChange={this.handleChange}
                 value={this.state.email}
