@@ -1,5 +1,4 @@
 import React from "react";
-import Classes from "./contacts/contactlayouts/Cardheader.module.css";
 class Form extends React.Component {
   constructor() {
     super();
@@ -30,12 +29,12 @@ class Form extends React.Component {
         break;
       case "email":
         focus.emailfocus =
-          value.indexOf("@") == -1 || value.indexOf(".") == -1
+          value.indexOf("@") === -1 || value.indexOf(".") === -1
             ? "Email should be @gmail.com form."
             : true;
         break;
       case "phone":
-        if (value.length < 10 || value.length > 10) {
+        if (value.length !== 10) {
           focus.phonefocus = "Number should be equal to 10.";
         } else if (Math.sign(value) === -1) {
           focus.phonefocus = "Number cannot have - sigh.";
@@ -67,7 +66,7 @@ class Form extends React.Component {
         error: { phoneerror: "Please enter the valid phone number, " },
         valid: false,
       });
-    } else if (phone.length < 10 || phone.length > 10) {
+    } else if (phone.length !== 10) {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
         valid: false,
@@ -96,21 +95,18 @@ class Form extends React.Component {
 
     const { nameerror, emailerror, phoneerror } = this.state.error;
     const { namefocus, emailfocus, phonefocus } = this.state.focus;
-    let buttondisabled = null;
+    let buttondisabled = (
+      <button type="submit" disabled className="btn btn-primary">
+        Submit
+      </button>
+    );
     if (namefocus === true && emailfocus === true && phonefocus === true) {
       buttondisabled = (
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       );
-    } else {
-      buttondisabled = (
-        <button type="submit" disabled className="btn btn-primary">
-          Submit
-        </button>
-      );
     }
-    let card = ["card", Classes.cardheader];
     return (
       <div className="card w-50 mt-5 mx-auto">
         <div className="card-header">
@@ -157,6 +153,7 @@ class Form extends React.Component {
               <span style={{ color: "red" }}>{phoneerror}</span>
               <span style={{ color: "red" }}>{phonefocus}</span>
             </div>
+
             {buttondisabled}
           </form>
         </div>

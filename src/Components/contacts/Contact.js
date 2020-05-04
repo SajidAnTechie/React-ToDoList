@@ -68,7 +68,7 @@ class Contact extends React.Component {
         error: { phoneerror: "Please enter the valid phone number, " },
         valid: false,
       });
-    } else if (phone.length < 10 || phone.length > 10) {
+    } else if (phone.length !== 10) {
       return this.setState({
         error: { phoneerror: "Please enter the valid phone number, " },
         valid: false,

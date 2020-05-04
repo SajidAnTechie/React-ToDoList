@@ -5,7 +5,7 @@ import Form from "./Components/Form";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import uuid from "uuid/v4";
+// import uuid from "uuid/v4";
 import { Transition } from "react-spring/renderprops";
 import axios from "axios";
 import Auxillary from "./Components/HOC/Auxillary";
@@ -15,9 +15,10 @@ class App extends React.Component {
   state = {
     contact: [],
     show: false,
+    errohandler: null,
   };
   componentDidMount() {
-    this.handledatafetch();
+    // this.handledatafetch();
   }
 
   handledatafetch = () => {
@@ -28,7 +29,7 @@ class App extends React.Component {
         this.setState({ contact: response.data.data });
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response.data);
       });
   };
 
@@ -63,7 +64,17 @@ class App extends React.Component {
             }
           })
           .catch((error) => {
-            alert(error.message);
+            if (error.response.status === 401) {
+              Swal.fire({
+                icon: "error",
+                text: error.response.data,
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                text: error.response.data,
+              });
+            }
           });
       }
     });
@@ -77,7 +88,20 @@ class App extends React.Component {
         toast.success("Data Added Successful");
       })
       .catch((error) => {
-        alert(error.message);
+        if (error.response.status === 401) {
+          Swal.fire({
+            icon: "error",
+            text: error.response.data,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            text: error.response.data,
+          });
+        }
+
+        // this.setState({ errohandler: error });
+        // alert(this.state.errohandler);
 
         // console.log(error.message);
       });
@@ -105,7 +129,17 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert(error.message);
+        if (error.response.status === 401) {
+          Swal.fire({
+            icon: "error",
+            text: error.response.data,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            text: error.response.data,
+          });
+        }
       });
     // let editdata = this.state.contact.map((contact) => {
     //   if (contact.id === editformdata.id) {
