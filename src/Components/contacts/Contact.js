@@ -106,9 +106,33 @@ class Contact extends React.Component {
       );
     }
 
-    let editformshow = null;
+    let formshow = (
+      <Cardheader
+        iconshape={iconshape}
+        hideshow={this.hideshow}
+        name={this.props.contact.name}
+        id={this.props.contact.id}
+        handleEditing={this.handleEditing}
+        handleDelete={this.handleDelete}
+        //handleDelete={this.props.delete(this.props.contact.id)}
+        cardbody={cardbody}
+      />
+    );
+    //   {/* {this.state.ishide ? (
+    //   <div className="card-body">
+    //     <ul className="lst-group">
+    //       <li className="list-group-item">
+    //         Gmail: {this.props.contact.email}
+    //       </li>
+    //       <li className="list-group-item">
+    //         Phone: {this.props.contact.phone}
+    //       </li>
+    //     </ul>
+    //   </div>
+    // ) : null} */}
+
     if (this.state.isEditing) {
-      editformshow = (
+      formshow = (
         <Edit
           submit={this.handleSubmit}
           change={this.handleChange}
@@ -118,33 +142,8 @@ class Contact extends React.Component {
           error={this.state.error}
         />
       );
-    } else {
-      editformshow = (
-        <Cardheader
-          iconshape={iconshape}
-          hideshow={this.hideshow}
-          name={this.props.contact.name}
-          id={this.props.contact.id}
-          handleEditing={this.handleEditing}
-          handleDelete={this.handleDelete}
-          //handleDelete={this.props.delete(this.props.contact.id)}
-          cardbody={cardbody}
-        />
-        //   {/* {this.state.ishide ? (
-        //   <div className="card-body">
-        //     <ul className="lst-group">
-        //       <li className="list-group-item">
-        //         Gmail: {this.props.contact.email}
-        //       </li>
-        //       <li className="list-group-item">
-        //         Phone: {this.props.contact.phone}
-        //       </li>
-        //     </ul>
-        //   </div>
-        // ) : null} */}
-      );
     }
-    return <Auxillary>{editformshow}</Auxillary>;
+    return <Auxillary>{formshow}</Auxillary>;
   }
 }
 
