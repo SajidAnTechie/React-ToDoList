@@ -4,7 +4,7 @@ exports.getAllcontacts = async (req, res, next) => {
   try {
     const contacts = await Contact.find();
     if (contacts.length === 0) {
-      return res.status(400).json({ Nocontacterror: "No Contacts" });
+      return res.status(400).json("No Contacts");
     } else {
       res.status(200).json({
         success: true,

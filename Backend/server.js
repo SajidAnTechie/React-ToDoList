@@ -18,6 +18,7 @@ app.use(cors());
 
 app.use("/api/v1/contacts", contact);
 
+//Here we can create middleware which is used for error handling
 const PORT = process.env.PORT || 3001;
 
 app.listen(
