@@ -91,10 +91,10 @@ class Contact extends React.Component {
   render() {
     let iconshape = this.state.ishide ? "fas fa-arrow-up" : "fas fa-arrow-down";
     //another way of handling condition
-    let icon = "fas fa-arrow-down";
-    if (this.state.ishide) {
-      icon = "fas fa-arrow-up";
-    }
+    // let icon = "fas fa-arrow-down";
+    // if (this.state.ishide) {
+    //   icon = "fas fa-arrow-up";
+    // }
     //
     let cardbody = null;
     if (this.state.ishide) {

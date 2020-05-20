@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Components/navbar/Navbar";
 import Contact from "./Components/contacts/Contact";
+import Paginations from "./Components/Pagination";
 import Form from "./Components/Form";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,6 +17,8 @@ class App extends React.Component {
     contact: [],
     show: false,
     errohandler: null,
+    currentPageNum: 1,
+    contactsPerPage: 5,
   };
   componentDidMount() {
     this.handledatafetch();
@@ -128,19 +131,28 @@ class App extends React.Component {
     // this.setState({ contact: editdata });
     // toast.success("Edit Successful");
   };
+  paginate = (number) => {
+    this.setState({ currentPageNum: number });
+  };
   render() {
+    const { currentPageNum, contactsPerPage, contact } = this.state;
     //we can map js array by defining in a variable.
 
     // const contactlist = this.state.contact.split('').map(contacts => (
     //   <Contact contact={contacts} key={contacts.id} delete={this.delete} />
     // ));
 
+    let indexOflastContact = currentPageNum * contactsPerPage;
+    let indexOffirstContact = indexOflastContact - contactsPerPage;
+
+    let currenContacts = contact.slice(indexOffirstContact, indexOflastContact);
+
     return (
       <Auxillary>
         <Navbar title="Contact Management System" />
         <Form data={this.insertData} />
         <Transition
-          items={this.state.contact}
+          items={currenContacts}
           keys={(item) => item._id}
           from={{ opacity: 0 }}
           enter={{ opacity: 1 }}
@@ -156,6 +168,12 @@ class App extends React.Component {
             </div>
           )}
         </Transition>
+        <Paginations
+          contactsPerPage={contactsPerPage}
+          tottalContacts={contact.length}
+          paginate={this.paginate}
+          currentPageNum={currentPageNum}
+        />
         {/* {contactlist} */}
         <ToastContainer />
       </Auxillary>
